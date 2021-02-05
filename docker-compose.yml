@@ -3,7 +3,7 @@ services:
   todo:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: iaas/docker/Dockerfile
     restart: always
     volumes:
     - .:/go/src/github.com/alegd/todo-demo

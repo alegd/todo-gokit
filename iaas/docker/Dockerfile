@@ -1,12 +1,9 @@
-FROM fifintegracion/golang:alpine AS build
+FROM golang
 
-WORKDIR /app
-COPY . .
-RUN make build
+RUN mkdir -p /go/src/github.com/alegd/todo-demo
 
-FROM alpine
-WORKDIR /app
-COPY --from=build /app/build/bin/api-rest-con-master-mold /app
+ADD . /go/src/github.com/alegd/todo-demo
 
+RUN cd /go/src/github.com/alegd/todo-demo && go mod vendor
 
-ENTRYPOINT [ "/app/api-rest-con-master-mold" ][]
+ENTRYPOINT  watcher -run github.com/alegd/todo-demo/cmd -watch github.com/alegd/todo-demo
